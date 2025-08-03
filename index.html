@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8" />
+    <title>Pesquisa de Artistas</title>
+</head>
+<body>
+    <h1>Pesquisar Artistas</h1>
+    <form method="post">
+        <input type="text" name="query" placeholder="Nome do artista" required />
+        <button type="submit">Buscar</button>
+    </form>
+    <ul>
+        {% for artista in artistas %}
+            <li>
+                <strong>{{ artista.name }}</strong><br />
+                Seguidores: {{ artista.followers.total }}<br />
+                Gêneros: {{ artista.genres | join(", ") }}<br />
+                {% if artista.images %}
+                    <img src="{{ artista.images[0].url }}" width="150" />
+                {% endif %}
+            </li>
+        {% else %}
+            {% if artistas is not none %}
+                <li>Nenhum artista encontrado.</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</body>
+</html>
